@@ -1,5 +1,5 @@
 ---
-- hosts: 54.199.243.153
+- hosts: all
   become: yes
   become_user: true
   tasks: 
