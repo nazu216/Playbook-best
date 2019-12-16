@@ -1,7 +1,10 @@
 ---
-- hosts: all
+- name: hosts
+  hosts: 52.196.74.162
   become: yes
   become_user: true
   tasks: 
   - name: echo
-    yum: pkg=httpd state=latest
+    yum: 
+      name: httpd 
+      state: latest
