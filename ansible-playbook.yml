@@ -3,7 +3,7 @@
   hosts: myservers
   become: yes
   remote_user: ec2-user
-  become_user: true
+  become_user: root
   tasks: 
   - name: echo
     yum: 
