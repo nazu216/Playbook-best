@@ -1,11 +1,21 @@
----
-- name: hosts
-  hosts: myservers
+- hosts: webservers
   become: yes
-  remote_user: ec2-user
   become_user: root
-  tasks: 
-  - name: echo
-    yum: 
-      name: httpd 
-      state: latest
+  become_method: sudo
+  tasks:
+    - name: install apache this way
+      apt: name=apache2 update_cache=yes state=latest
+      notify: start apache2
+      when: ansible_os_family == "Debian"
+
+    - name: install apache that way
+      yum: name=httpd state=latest
+      notify: start httpd
+      when: ansible_os_family == "RedHat"
+
+  handlers:
+    - name: start apache2
+      service: name=apache2 enabled=yes state=started
+
+    - name: start httpd
+      service: name=httpd enabled=yes state=started
